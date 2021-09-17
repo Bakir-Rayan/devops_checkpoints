@@ -1,31 +1,78 @@
 OS used ==> Ubuntu 20.04
 java version used ==> openjdk 11.0.11
 
-I- So to install jenkins, first we need check if java is installed the we proced to installinf jenkins and anabele it 
+I- So to install Jenkins, first, we need to check if java and OpenSSH are installed then we proceed to install Jenkins and enable it to start on each reboot
 
-    1- Check if java is installed :
+    1- Check if java and OpenSSH are installed :
     
-        java --version
-    
-    if the ouput is like below : 
-    
-        openjdk 11.0.11 2021-04-20
-        OpenJDK Runtime Environment (build 11.0.11+9-Ubuntu-0ubuntu2.20.04)
-        OpenJDK 64-Bit Server VM (build 11.0.11+9-Ubuntu-0ubuntu2.20.04, mixed mode, sharing)
-    
-    that mean java is installed, otherwise we can install it by :
+        ** for java :
+            java --version
+        
+        if the output is like below : 
+            
+            openjdk 11.0.11 2021-04-20
+            OpenJDK Runtime Environment (build 11.0.11+9-Ubuntu-0ubuntu2.20.04)
+            OpenJDK 64-Bit Server VM (build 11.0.11+9-Ubuntu-0ubuntu2.20.04, mixed mode, sharing)
+        
+        that means Java is installed, otherwise, we can install it by :
 
-        sudo apt update     # we update the repositories
-        sudo apt install openjdk-11-jdk     # we install java (the recommended version for the last release of Jenkins)
-        java -version       # we check the installation of java
+            sudo apt update     # we update the repositories
+            sudo apt install openjdk-11-jdk     # we install java (the recommended version for the last release of Jenkins)
+            java --version       # we check the installation of java
 
-    2- Installing jenkins :
+        ** for ssh :
 
-        wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -       # we add the GPG key of the jenkins repositorie 
-                                                                                                    # ( we should get an OK response if everything worked correctly)
+            sudo systemctl status ssh
+
+        if the output is like below :
+
+            sudo apt update
+            sudo apt install openssh-server
+            sudo systemctl start ssh
+            sudo systemctl enable ssh
+            sudo systemctl statut ssh
+
+    2- Installing Jenkins :
+
+        wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -       # we add the GPG key of the Jenkins repository 
+                                                                                                    # (we should get an OK response if everything worked correctly)
         sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'        
-                                    # we add the repositorie link to the sources list directory of ubuntu so we can update jenkins within other updates automaticly
-        sudo apt-get update     # we update again ubuntu so we can get the new list of new realese including the last realese of jenkins 
-        sudo apt-get install jenkins        # we intall jenkins 
-    
-    3- 
+                                    # we add the repository link to the sources list directory of ubuntu so we can update Jenkins within other updates automatically
+        sudo apt-get update     # we update again ubuntu so we can get the new list of new releases including the last release of Jenkins 
+        sudo apt-get install jenkins        # we install jenkins 
+
+    3- We set up Jenkins so he can start automatically with the start of the os:
+
+        sudo systemctl start jenkins        # we start Jenkins in the background
+        sudo systemctl enable jenkins       # we enable Jenkins to start at each reboot
+        sudo systemctl status jenkins       # we check the status of Jenkins and if there is an error with his execution
+
+    4- we set up the firewall 
+
+        sudo ufw status
+
+        if the firewall is inactive just enable it by :
+
+            sudo ufw enable
+        
+        if ufw isn't installed on you system you can do so :
+
+            sudo apt install ufw
+
+        sudo ufw allow 8080
+        sudo ufw allow ssh
+
+        sudo ufw status     # you should get the followong output (may differe if you have enable some port before)
+
+            Status: active
+            Logging: on (low)
+            Default: deny (incoming), allow (outgoing), deny (routed)
+            New profiles: skip
+
+            To                         Action      From
+            --                         ------      ----
+            22/tcp                     ALLOW IN    Anywhere                  
+            8080                       ALLOW IN    Anywhere                  
+            22/tcp (v6)                ALLOW IN    Anywhere (v6)             
+            8080 (v6)                  ALLOW IN    Anywhere (v6)
+        
