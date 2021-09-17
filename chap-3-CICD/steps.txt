@@ -26,11 +26,26 @@ I- So to install Jenkins, first, we need to check if java and OpenSSH are instal
 
         if the output is like below :
 
+            ● ssh.service - OpenBSD Secure Shell server
+            Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+            Active: active (running) since Fri 2021-09-17 17:47:45 CET; 14min ago
+            Docs: man:sshd(8)
+            man:sshd_config(5)
+            Process: 1192 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+            Main PID: 1264 (sshd)
+            Tasks: 1 (limit: 9445)
+            Memory: 2.1M
+            CGroup: /system.slice/ssh.service
+            └─1264 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+
+        that means ssh is installed, otherwise, we can install it by :
+
             sudo apt update
             sudo apt install openssh-server
-            sudo systemctl start ssh
-            sudo systemctl enable ssh
-            sudo systemctl statut ssh
+            
+            sudo systemctl start ssh       # we start ssh in the background
+            sudo systemctl enable ssh       # we enable ssh to start at each reboot
+            sudo systemctl status ssh       # we check the status of ssh and if there is an error with his execution
 
     2- Installing Jenkins :
 
@@ -76,3 +91,18 @@ I- So to install Jenkins, first, we need to check if java and OpenSSH are instal
             22/tcp (v6)                ALLOW IN    Anywhere (v6)             
             8080 (v6)                  ALLOW IN    Anywhere (v6)
         
+
+II- Now, to install Jenkins Plugins
+
+    1- We need to unlock Jenkins by browsing to http://localhost:8080 
+    2- there will be a path ( /var/lib/jenkins/secrets/initialAdminPassword ) which contain the password to unlock jenkins 
+    3- then we proceed to customize Jenkins by installing the recommended plugins or selecting the plugin we want (we gonna use the first option in our case) and for the second option we do so:
+    3.1- we could install other plugging later on with different methods offline (by using files) or online:
+        3.1.1- jenkins cli :
+            jenkins-plugin-cli --plugins "the-plugin-we-wawnt":"the-version-of-the-plugin"
+        3.1.2- the web UI:
+            In the web UI, there is a plugin section where we can check for new plugins or update the ones already installed
+
+
+
+    
