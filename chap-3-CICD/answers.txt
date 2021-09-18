@@ -105,4 +105,13 @@ II- Now, to install Jenkins Plugins
 
 
 
-    
+III- In this phase we test a freestyle project on jenkins
+
+    - After finishing with the setup of Jenkins we start by choosing a new item in the Jenkins dashboard as shown in /question-3/step1.jpg
+    - Then we choose a name for the project also select the Freestyle project as shown in /question-3/step2.png
+    - In the general setting, we add a description as shown in /question-3/step3.png
+    - In source code management we gonna use a git repository to get the source code of our test as shown in /question-3/step4.png
+    - In the build section, we use an execution shell with some java commands to test our build as shown in /question-3/step5.png
+    - After applying the changes and saving them we start the build process as we see in /question-3/step6.png
+    - The build successfully finished as shown in /question-3/step6.png, we can check the console output for our commands if they successfully run (/question-3/step7.png)
+
