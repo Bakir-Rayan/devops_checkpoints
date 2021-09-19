@@ -114,4 +114,10 @@ III- In this phase we test a freestyle project on jenkins
     - In the build section, we use an execution shell with some java commands to test our build as shown in /question-3/step5.png
     - After applying the changes and saving them we start the build process as we see in /question-3/step6.png
     - The build successfully finished as shown in /question-3/step6.png, we can check the console output for our commands if they successfully run (/question-3/step7.png)
+    - The link of the app : https://github.com/Bakir-Rayan/test_case
 
+IV- Last 3 questions 
+
+    - For ease of use and technical issues, I preferred to use Nodejs instead of angular, and also used a dockerfile with Jenkinsfile to deploy the app.
+    - Also, there are two images showing the success of the build and the app running in the " question-4-5-6 " directory.
+    - The link of the app : https://github.com/Bakir-Rayan/test_node_app
