@@ -1,0 +1,7 @@
+the link to docker hub is : https://hub.docker.com/r/rayanbak257/deno_app_test
+
+to run it :
+
+docker pull rayanbak257/deno_app_test
+
+docker run -d -p 8000:8000 rayanbak257/deno_app_test:latest
