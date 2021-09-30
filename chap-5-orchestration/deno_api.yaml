@@ -17,20 +17,32 @@ spec:
     spec: 
       containers: 
         - 
-          image: "nginx:1.7.9"
+          image: rayanbak257/deno_rest_api_test:latest
           name: deno
           ports: 
             - 
-              containerPort: 80
+              containerPort: 7700
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: deno-rest-api-entrypoint
-  type: NodePort
+spec:
   selector:
     app: deno
   ports:
-  - port: 3000
-    targetPort: 3000
-    nodePort: 30001
+  - name: http
+    protocol: TCP
+    port: 7700
+    targetPort: 7700
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: deno-rest-api-ingress
+spec:
+  defaultBackend:
+    service:
+      name: deno-ingress
+      port:
+        number: 7700
