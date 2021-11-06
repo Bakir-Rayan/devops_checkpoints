@@ -43,6 +43,6 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: deno-ingress
+      name: deno-rest-api-entrypoint
       port:
         number: 7700
