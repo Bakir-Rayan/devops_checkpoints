@@ -28,6 +28,7 @@ kind: Service
 metadata:
   name: deno-rest-api-entrypoint
 spec:
+  type: NodePort
   selector:
     app: deno
   ports:
